@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  backend-api:
+    build: 
+      context: ./backend-api
+      dockerfile: ../backend-api.dockerfile
+    depends_on:
+      - redis
+    ports:
+      - "8081:80"
+  redis:
+    image: redis:6
