@@ -6,11 +6,12 @@ namespace backend_api.Services;
 public class CharacterService : ICharacterService
 {
   private IDictionary<Guid, WritableCharacter> Cache { get; } = new Dictionary<Guid, WritableCharacter>();
-  private IDatabase RedisDatabase { get; }
-
+  private IConnectionMultiplexer Multiplexer { get; }
+  private IDatabase RedisDatabase { get { return Multiplexer.GetDatabase(); } }
+  
   public CharacterService(IConnectionMultiplexer multiplexer)
   {
-    RedisDatabase = multiplexer.GetDatabase();
+    Multiplexer = multiplexer;
     for (var i = 0; i < 150; i++)
     {
       var character = new WritableCharacter
@@ -35,7 +36,7 @@ public class CharacterService : ICharacterService
   {
     WritableCharacter character = Cache[id];
     character.SetExp(character.Experience + exp);
-    RedisDatabase.SortedSetAdd("players", id.ToString(), character.Experience);
     RedisDatabase.Publish($"experience:{id}", character.Experience.ToString());
+    RedisDatabase.SortedSetAdd("players", id.ToString(), character.Experience);
   }
 }

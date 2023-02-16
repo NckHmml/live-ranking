@@ -8,5 +8,16 @@ services:
       - redis
     ports:
       - "8081:80"
+  frontend-api:
+    build: 
+      context: ./frontend-api
+      dockerfile: ../frontend-api.dockerfile
+    depends_on:
+      - backend-api
+      - redis
+    ports:
+      - "8080:8080"
   redis:
     image: redis:6
+    ports:
+      - "6379:6379"

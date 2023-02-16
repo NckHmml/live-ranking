@@ -1,0 +1,115 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": { "project": "./frontend-api/tsconfig.json" },
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "@typescript-eslint/array-type": [ "error", { "default": "generic" } ],
+    "@typescript-eslint/ban-types": [ "error", 
+      {
+        "types": {
+          "Object": {
+            "message": "Avoid using the `Object` type. Did you mean `object`?"
+          },
+          "Function": {
+            "message": "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
+          },
+          "Boolean": {
+            "message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
+          },
+          "Number": {
+            "message": "Avoid using the `Number` type. Did you mean `number`?"
+          },
+          "String": {
+            "message": "Avoid using the `String` type. Did you mean `string`?"
+          },
+          "Symbol": {
+            "message": "Avoid using the `Symbol` type. Did you mean `symbol`?"
+          },
+          "{}": false
+        }
+      }
+    ],
+    "@typescript-eslint/explicit-member-accessibility": [ "error", { "accessibility": "explicit" } ],
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/member-delimiter-style": [ "error",
+      {
+        "multiline": {
+          "delimiter": "semi",
+          "requireLast": true
+        },
+        "singleline": {
+          "delimiter": "semi",
+          "requireLast": false
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": "off",
+    "@typescript-eslint/naming-convention": [ "error",
+      { "selector": "default", "format": ["camelCase"], "leadingUnderscore": "allow" },
+      { "selector": "variable", "format": ["camelCase", "PascalCase", "UPPER_CASE"] },
+      { "selector": "typeLike", "format": ["PascalCase"] },
+      { "selector": "enumMember", "format": ["PascalCase"] },
+      { "selector": "property", "format": null }
+    ],
+    "@typescript-eslint/no-require-imports": "error",
+    "@typescript-eslint/no-unused-expressions": "error",
+    "@typescript-eslint/no-var-requires": "error",
+    "@typescript-eslint/prefer-namespace-keyword": "error",
+    "@typescript-eslint/quotes": ["error", "double", { "avoidEscape": true }],
+    "@typescript-eslint/semi": ["error", "always"],
+    "@typescript-eslint/type-annotation-spacing": "error",
+    "arrow-parens": ["off", "always"],
+    "brace-style": ["off", "off"],
+    "eol-last": "error",
+    "id-blacklist": ["error", "any", "Number", "number", "String", "string", "Boolean", "boolean", "Undefined"],
+    "id-match": "error",
+    "no-eval": "error",
+    "no-invalid-this": "off", 
+    "no-irregular-whitespace": "off",
+    "no-nested-ternary": "error",
+    "no-trailing-spaces": "error",
+    "no-underscore-dangle": "off",
+    "prefer-const": "error",
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["el", "ref", "e", "agr"] }], 
+    "space-in-parens": ["off", "never"],
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "markers": ["/"]
+      }
+    ],
+    "no-console": ["warn" ],
+    "quote-props": [
+      "error",
+      "consistent-as-needed"
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "all",
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        "allowString": false,
+        "allowNumber": false,
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+        "allowNullableNumber": true
+      }
+    ],
+    "@typescript-eslint/no-non-null-assertion": "off"
+  }
+}
