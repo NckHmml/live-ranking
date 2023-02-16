@@ -8,7 +8,7 @@ public class CharacterService : ICharacterService
   private IDictionary<Guid, WritableCharacter> Cache { get; } = new Dictionary<Guid, WritableCharacter>();
   private IConnectionMultiplexer Multiplexer { get; }
   private IDatabase RedisDatabase { get { return Multiplexer.GetDatabase(); } }
-  
+
   public CharacterService(IConnectionMultiplexer multiplexer)
   {
     Multiplexer = multiplexer;
@@ -38,5 +38,14 @@ public class CharacterService : ICharacterService
     character.SetExp(character.Experience + exp);
     RedisDatabase.Publish($"experience:{id}", character.Experience.ToString());
     RedisDatabase.SortedSetAdd("players", id.ToString(), character.Experience);
+  }
+
+  public void ClearExp()
+  {
+    foreach (WritableCharacter character in Cache.Values)
+    {
+      character.SetExp(0);
+      RedisDatabase.Publish($"experience:{character.Id}", 0);
+    }
   }
 }

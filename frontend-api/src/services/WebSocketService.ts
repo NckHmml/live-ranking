@@ -3,7 +3,7 @@ import { WebSocket } from "ws";
 
 export class WebSocketService {
   private static channels: { [key: string]: Array<WebSocket> } = {};
-  private static redisClient = new Redis("redis://localhost");
+  private static redisClient = new Redis(`redis://${process.env.REDIS}`);
 
   public static listen() {
     this.redisClient.psubscribe("experience:*");
@@ -29,7 +29,6 @@ export class WebSocketService {
           this.subscribe(socket, channel);
       }
     }
-
   }
 
   private static subscribe(socket: WebSocket, channel: string) {
@@ -48,7 +47,6 @@ export class WebSocketService {
         message,
       });
       client.send(data);
-      console.log("message", message);
     }
   };
 }

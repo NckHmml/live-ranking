@@ -9,6 +9,7 @@ services:
     ports:
       - "8081:80"
   frontend-api:
+    env_file: ./frontend-api/.env.production
     build: 
       context: ./frontend-api
       dockerfile: ../frontend-api.dockerfile

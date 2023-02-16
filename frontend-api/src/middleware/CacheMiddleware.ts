@@ -4,11 +4,13 @@ import * as RedisCache from "express-redis-cache";
 @Middleware({ type: "before" })
 export class CacheMiddleware implements ExpressMiddlewareInterface {
   private cache = RedisCache.default({
-    host: "localhost",
+    host: process.env.REDIS,
     prefix: "cache",
     expire: 60,
   });
+  private useCaching = this.cache.route();
+
   public use(request: any, response: any, next: (err?: any) => any) {
-    this.cache.route()(request, response, next);
+    this.useCaching(request, response, next);
   }
 }

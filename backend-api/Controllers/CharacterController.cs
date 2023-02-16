@@ -18,7 +18,7 @@ public class CharacterController : ControllerBase
     CharacterService = characterService;
   }
 
-  [HttpGet(Name = "GetCharacter")]
+  [HttpGet(Name = "GetCharacters")]
   public IEnumerable<Character> GetAll()
   {
     Logger.LogInformation($"GET characters");

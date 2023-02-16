@@ -1,14 +1,19 @@
 import "reflect-metadata";
+
+import { config as dotenv }from "dotenv";
+dotenv();
+
 import { createExpressServer } from "routing-controllers";
 import { WebSocketServer } from "ws";
 
-import { CharacterController } from "./controllers/CharacterController";
 import { CacheMiddleware } from "./middleware/CacheMiddleware";
 import { WebSocketService } from "./services/WebSocketService";
+import { CharacterController } from "./controllers/CharacterController";
+import { RankingController } from "./controllers/RankingController";
 
 // Create routing-controllers
 const app = createExpressServer({
-  controllers: [CharacterController],
+  controllers: [CharacterController, RankingController],
   middlewares: [CacheMiddleware],
 });
 // Start listening

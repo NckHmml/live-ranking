@@ -4,13 +4,13 @@ import { Controller, Get, Param } from "routing-controllers";
 export class CharacterController {
   @Get("/character")
   public async getAll() {
-    const response = await fetch("http://localhost:8081/character");
+    const response = await fetch(`${process.env.BACKEND_API}/character`);
     return await response.json();
   }
 
   @Get("/character/:id")
   public async getOne(@Param("id") id: string) {
-    const response = await fetch(`http://localhost:8081/character/${id}`);
+    const response = await fetch(`${process.env.BACKEND_API}/character/${id}`);
     return await response.json();
   }
 }
