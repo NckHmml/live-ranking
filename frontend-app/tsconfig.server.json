@@ -4,8 +4,12 @@
     "transpileOnly": true,
   },
   "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "jsx": "react",
     "baseUrl": "./src",
+    "lib": ["DOM", "DOM.Iterable", "es2022"],
+    "outDir": "./bin"
   },
   "exclude": [
     "node_modules"

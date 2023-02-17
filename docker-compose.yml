@@ -22,3 +22,12 @@ services:
       - redis
     ports:
       - "8080:8080"
+  frontend-app:
+    env_file: ./frontend-app/.env.ssr
+    build: 
+      context: ./frontend-app
+      dockerfile: ../frontend-app.dockerfile
+    depends_on:
+      - frontend-api
+    ports:
+      - "3000:3000"

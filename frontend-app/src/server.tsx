@@ -1,5 +1,9 @@
 /* eslint-disable import/first */
 import "reflect-metadata";
+
+import { config as dotenv } from "dotenv";
+dotenv();
+
 import express from "express";
 import Container from "typedi";
 import * as path from "path";
@@ -107,12 +111,15 @@ const renderReact: express.RequestHandler = async (req: express.Request, res: ex
   );
 
   const helmet = Helmet.renderStatic();
-
-  res.writeHead(context.statusCode, { "Content-Type": "text/html" });
-  res.end(indexTemplate({
+  const body = indexTemplate({
     reactDom,
     helmet,
-  }));
+  });
+
+  console.log("renderReact", body);
+
+  res.writeHead(context.statusCode, { "Content-Type": "text/html" });
+  res.end(body);
 };
 
 server.get("/", renderReact);
