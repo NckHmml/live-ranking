@@ -25,11 +25,14 @@ require.extensions[".svg"] = (module, file) => {
 };
 
 import Routes from "./routes";
-import { RANKING_SERVICE } from "./services/RankingService";
+import { RankingService } from "./services/RankingService";
 import { ServerRankingService } from "./services/impl/ServerRankingService";
+import { WebSocketService } from "./services/WebSocketService";
+import { ServerWebSocketService } from "./services/impl/ServerWebSocketService";
 
 /** TypeDI */
-Container.set(RANKING_SERVICE, new ServerRankingService());
+Container.set(RankingService, new ServerRankingService());
+Container.set(WebSocketService, new ServerWebSocketService());
 
 /** MobX */
 enableStaticRendering(true);
@@ -115,8 +118,6 @@ const renderReact: express.RequestHandler = async (req: express.Request, res: ex
     reactDom,
     helmet,
   });
-
-  console.log("renderReact", body);
 
   res.writeHead(context.statusCode, { "Content-Type": "text/html" });
   res.end(body);

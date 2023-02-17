@@ -8,13 +8,26 @@ import { Helmet } from "react-helmet";
 
 import "./index.css";
 import routes from "./routes";
-import { RANKING_SERVICE } from "./services/RankingService";
+import { RankingStore } from "./redux/RankingStore";
+import { RankingService } from "./services/RankingService";
 import { BrowserRankingService } from "./services/impl/BrowserRankingService";
+import { WebSocketService } from "./services/WebSocketService";
+import { BrowserWebSocketService } from "./services/impl/BrowserWebSocketService";
 
 /** TypeDI */
-Container.set(RANKING_SERVICE, new BrowserRankingService());
+Container.set(RankingService, new BrowserRankingService());
+Container.set(WebSocketService, new BrowserWebSocketService());
 
-const router = createBrowserRouter(routes);
+const hydrationData = window.__staticRouterHydrationData;
+
+if (Boolean(hydrationData)) {
+  // Hydrate the ranking
+  const rankingStore = Container.get(RankingStore);
+  rankingStore.hydrate(hydrationData!);
+}
+
+
+const router = createBrowserRouter(routes, { hydrationData });
 
 const children = (
   <React.StrictMode>

@@ -43,8 +43,8 @@ public class TimerService : IHostedService, IDisposable
     var random = new Random();
     foreach (Character character in characters)
     {
-      var bonus = (long)Math.Min(character.Experience / 10, 1e6); // Bonus makes the top of the leaderboard "run ahead" due to luck increasing the max random
-      var exp = random.NextInt64(10, 1000 + bonus);
+      var bonus = (long)Math.Min(character.Experience / 5, 1e4); // Bonus makes the top of the leaderboard "run ahead" due to luck increasing the max random
+      var exp = random.NextInt64(1, 1000 + bonus);
       CharacterService.AddExp(character.Id, exp);
     }
   }

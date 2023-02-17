@@ -11,9 +11,12 @@ interface IProps {
 @observer
 class Ranking extends React.Component<IProps> {
   public render(): React.ReactNode {
-    const rankings = this.props.loaderData.map((c, i) => (
-      <div key={c.id}>#{i+1} {c.name}</div>
-    ));
+    const rankings = this.props.loaderData
+      .slice(0, 5)
+      .sort((a, b) => (a.experience > b.experience ? -1 : 1))
+      .map((c, i) => (
+        <div key={c.id}>#{i+1} {c.name} - {c.experience}</div>
+      ));
     return (
       <div>
         <h1>Ranking</h1>

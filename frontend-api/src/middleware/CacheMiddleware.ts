@@ -6,7 +6,7 @@ export class CacheMiddleware implements ExpressMiddlewareInterface {
   private cache = RedisCache.default({
     host: process.env.REDIS,
     prefix: "cache",
-    expire: 60,
+    expire: 10,
   });
   private useCaching = this.cache.route();
 

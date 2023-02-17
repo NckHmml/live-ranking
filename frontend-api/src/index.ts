@@ -22,7 +22,7 @@ const server = app.listen(8080, () => {
   console.log("Server started on 8080");
   WebSocketService.listen();
 });
-// Websockets
+// WebSockets
 const wsServer = new WebSocketServer({ noServer: true });
 server.on("upgrade", (request: any, socket: any, head: any) => {
   wsServer.handleUpgrade(request, socket, head, socket => {

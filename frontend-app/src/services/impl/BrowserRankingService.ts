@@ -1,13 +1,13 @@
 import { ICharacterViewModel } from "../../models/Character";
-import { IRankingService } from "../RankingService";
+import { RankingService } from "../RankingService";
 
-export class BrowserRankingService implements IRankingService {
+export class BrowserRankingService extends RankingService {
   public async getAll(): Promise<Array<ICharacterViewModel>> {
-    const response = await fetch(`${process.env.REACT_APP_API}/ranking`);
+    const response = await fetch(`http://${process.env.REACT_APP_API}/ranking`);
     return response.json();
   }
 
   public async clearAll(): Promise<void> {
-    await fetch(`${process.env.REACT_APP_API}/ranking`, { method: "DELETE" });
+    await fetch(`http://${process.env.REACT_APP_API}/ranking`, { method: "DELETE" });
   }
 }

@@ -14,6 +14,7 @@ const routes: Array<RouteObject> = [{
     path: "/",
     element: <Home />,
   }, {
+    id: "ranking",
     path: "ranking",
     element: <Ranking />,
     loader: async () => {
