@@ -1,6 +1,6 @@
 import "reflect-metadata";
 
-import { config as dotenv }from "dotenv";
+import { config as dotenv } from "dotenv";
 dotenv();
 
 import { createExpressServer } from "routing-controllers";
@@ -15,6 +15,7 @@ import { RankingController } from "./controllers/RankingController";
 const app = createExpressServer({
   controllers: [CharacterController, RankingController],
   middlewares: [CacheMiddleware],
+  cors: true,
 });
 // Start listening
 const server = app.listen(8080, () => {

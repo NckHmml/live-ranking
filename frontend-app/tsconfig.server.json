@@ -1,0 +1,13 @@
+{
+  "extends": "@tsconfig/node18",
+  "ts-node": {
+    "transpileOnly": true,
+  },
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "./src",
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

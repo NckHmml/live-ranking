@@ -1,5 +1,9 @@
 version: "3.2"
 services:
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
   backend-api:
     build: 
       context: ./backend-api
@@ -18,7 +22,3 @@ services:
       - redis
     ports:
       - "8080:8080"
-  redis:
-    image: redis:6
-    ports:
-      - "6379:6379"
