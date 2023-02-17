@@ -1,5 +1,5 @@
-import { ICharacterViewModel } from "../../models/Character";
-import { RankingService } from "../RankingService";
+import { ICharacterViewModel } from "models/Character";
+import { RankingService } from "services/RankingService";
 
 export class ServerRankingService extends RankingService {
   public async getAll(): Promise<Array<ICharacterViewModel>> {

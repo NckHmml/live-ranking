@@ -24,11 +24,11 @@ require.extensions[".svg"] = (module, file) => {
   module.exports = "data:image/svg+xml;base64," + content;
 };
 
-import Routes from "./routes";
-import { RankingService } from "./services/RankingService";
-import { ServerRankingService } from "./services/impl/ServerRankingService";
-import { WebSocketService } from "./services/WebSocketService";
-import { ServerWebSocketService } from "./services/impl/ServerWebSocketService";
+import Routes from "routes";
+import { RankingService } from "services/RankingService";
+import { ServerRankingService } from "services/impl/ServerRankingService";
+import { WebSocketService } from "services/WebSocketService";
+import { ServerWebSocketService } from "services/impl/ServerWebSocketService";
 
 /** TypeDI */
 Container.set(RankingService, new ServerRankingService());

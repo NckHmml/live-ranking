@@ -6,6 +6,7 @@ RUN npm ci
 RUN npx tsc --build
 
 FROM node:19-alpine
+ENV NODE_PATH=./
 WORKDIR /app
 
 COPY ./package-lock.json .

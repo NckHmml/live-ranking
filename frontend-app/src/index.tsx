@@ -6,13 +6,13 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
-import "./index.css";
-import routes from "./routes";
-import { RankingStore } from "./redux/RankingStore";
-import { RankingService } from "./services/RankingService";
-import { BrowserRankingService } from "./services/impl/BrowserRankingService";
-import { WebSocketService } from "./services/WebSocketService";
-import { BrowserWebSocketService } from "./services/impl/BrowserWebSocketService";
+import "index.css";
+import routes from "routes";
+import { RankingStore } from "redux/RankingStore";
+import { RankingService } from "services/RankingService";
+import { BrowserRankingService } from "services/impl/BrowserRankingService";
+import { WebSocketService } from "services/WebSocketService";
+import { BrowserWebSocketService } from "services/impl/BrowserWebSocketService";
 
 /** TypeDI */
 Container.set(RankingService, new BrowserRankingService());

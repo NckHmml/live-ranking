@@ -8,6 +8,7 @@ RUN npm run build
 RUN npx tsc --build tsconfig.server.json
 
 FROM node:19-alpine
+ENV NODE_PATH=bin/
 WORKDIR /app
 
 COPY ./package-lock.json .

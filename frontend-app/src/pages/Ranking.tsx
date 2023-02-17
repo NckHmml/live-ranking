@@ -1,7 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { RankingStore } from "../redux/RankingStore";
-import withLoaderData from "../helpers/withLoaderData";
+import Container from "typedi";
+import { RankingStore } from "redux/RankingStore";
+import withLoaderData from "helpers/withLoaderData";
+import { Logger } from "helpers/Logger";
 
 
 interface IProps {
@@ -10,6 +12,14 @@ interface IProps {
 
 @observer
 class Ranking extends React.Component<IProps> {
+  private get logger(): Logger {
+    return Container.get(Logger);
+  }
+
+  public componentDidMount() {
+    this.logger.info("Current page: Ranking");
+  }
+
   public render(): React.ReactNode {
     const rankings = this.props.loaderData
       .slice(0, 5)

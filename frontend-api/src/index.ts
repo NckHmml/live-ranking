@@ -6,10 +6,10 @@ dotenv();
 import { createExpressServer } from "routing-controllers";
 import { WebSocketServer } from "ws";
 
-import { CacheMiddleware } from "./middleware/CacheMiddleware";
-import { WebSocketService } from "./services/WebSocketService";
-import { CharacterController } from "./controllers/CharacterController";
-import { RankingController } from "./controllers/RankingController";
+import { CacheMiddleware } from "middleware/CacheMiddleware";
+import { WebSocketService } from "services/WebSocketService";
+import { CharacterController } from "controllers/CharacterController";
+import { RankingController } from "controllers/RankingController";
 
 // Create routing-controllers
 const app = createExpressServer({

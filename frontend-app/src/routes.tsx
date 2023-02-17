@@ -2,10 +2,10 @@ import React from "react";
 import { RouteObject } from "react-router-dom";
 import Container from "typedi";
 
-import App from "./App";
-import Home from "./pages/Home";
-import Ranking from "./pages/Ranking";
-import { RankingStore } from "./redux/RankingStore";
+import App from "App";
+import Home from "pages/Home";
+import Ranking from "pages/Ranking";
+import { RankingStore } from "redux/RankingStore";
 
 const routes: Array<RouteObject> = [{
   path: "/",

@@ -1,14 +1,21 @@
+import { Logger } from "helpers/Logger";
 import { WebSocketService, WebSocketServiceCallback } from "services/WebSocketService";
+import Container, { Service } from "typedi";
 
 interface IWebSocketMessage {
   channel: string;
   message: string;
 }
 
+@Service()
 export class BrowserWebSocketService extends WebSocketService {
   private loading: Promise<void>;
   private socket: WebSocket;
   private callbacks: { [key: string]: WebSocketServiceCallback } = {};
+
+  private get logger(): Logger {
+    return Container.get(Logger);
+  }
 
   public constructor() {
     super();
@@ -21,7 +28,7 @@ export class BrowserWebSocketService extends WebSocketService {
           this.handleMessage(event);
         }
       });
-    }).then(() => console.log("WebSocket connected"));
+    }).then(() => this.logger.info("WebSocket connected"));
   }
 
   public async join(room: string, callback: WebSocketServiceCallback) {

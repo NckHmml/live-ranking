@@ -2,9 +2,9 @@ import { makeAutoObservable, observable, runInAction } from "mobx";
 import Container, { Service } from "typedi";
 import { RouterState } from "@remix-run/router";
 
-import { WebSocketService } from "../services/WebSocketService";
-import { RankingService } from "../services/RankingService";
-import { ICharacterViewModel } from "../models/Character";
+import { WebSocketService } from "services/WebSocketService";
+import { RankingService } from "services/RankingService";
+import { ICharacterViewModel } from "models/Character";
 
 @Service()
 export class RankingStore {
