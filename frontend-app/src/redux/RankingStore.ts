@@ -62,6 +62,13 @@ export class RankingStore {
     this.charactersBuffer[index].experience = Number(message);
   };
 
+  public getCharacter = (id?: string): ICharacterViewModel | undefined => {
+    // ToDo: this needs a new data source, "character service"
+    const index = this.charactersBuffer.findIndex(x => x.id === id);
+    if (index === -1) return; // Happens when the ranking changed the top10 and we are listening to old chars, ToDo: optimize, unlisten
+    return this.charactersBuffer[index];
+  };
+
   public get characters(): Array<ICharacterViewModel> {
     return this.charactersBuffer;
   }

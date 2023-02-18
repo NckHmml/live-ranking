@@ -2,16 +2,14 @@ import React from "react";
 import { observer } from "mobx-react";
 import Container from "typedi";
 import { RankingStore } from "redux/RankingStore";
-import withLoaderData from "helpers/withLoaderData";
+import withLoaderData, { WithLoaderDataProps } from "helpers/withLoaderData";
 import { Logger } from "helpers/Logger";
+import { RankEntry } from "components/RankEntry";
 
-
-interface IProps {
-  loaderData: RankingStore["characters"];
-}
+type Props = WithLoaderDataProps<{}, RankingStore["characters"]>;
 
 @observer
-class Ranking extends React.Component<IProps> {
+class Ranking extends React.Component<Props> {
   private get logger(): Logger {
     return Container.get(Logger);
   }
@@ -21,11 +19,11 @@ class Ranking extends React.Component<IProps> {
   }
 
   public render(): React.ReactNode {
-    const rankings = this.props.loaderData
+    const rankings = this.props.loaderData!
       .slice(0, 5)
       .sort((a, b) => (a.experience > b.experience ? -1 : 1))
       .map((c, i) => (
-        <div key={c.id}>#{i+1} {c.name} - {c.experience}</div>
+        <RankEntry key={c.id} index={i + 1} character={c} />
       ));
     return (
       <div>

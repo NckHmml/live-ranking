@@ -13,5 +13,11 @@ code {
 }
 
 :root {
+  --cl-light-bg: #CCC;
+
   --cl-link: #61dafb;
+  --cl-rank-one: gold;
+  --cl-rank-two: silver;
+  --cl-rank-three: goldenrod;
+  --cl-rank-other: grey;
 }

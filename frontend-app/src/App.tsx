@@ -25,17 +25,19 @@ export default class App extends React.PureComponent {
             }
 
             img {
+              min-height: 100px;
+              max-height: 200px;
               height: 20vmin;
               pointer-events: none;
             }
 
             @media (prefers-reduced-motion: no-preference) {
               img {
-                animation: App-logo-spin infinite 20s linear;
+                animation: spin infinite 20s linear;
               }
             }
 
-            @keyframes App-logo-spin {
+            @keyframes spin {
               from {
                 transform: rotate(0deg);
               }
@@ -50,8 +52,8 @@ export default class App extends React.PureComponent {
             }
           `}</style>
           <header>
-            <img src="./logo.svg" alt="logo" />
-            <Link to="/">Homes</Link>
+            <img src="/logo.svg" alt="logo" />
+            <Link to="/">Home</Link>
             <Link to="/ranking">Ranking</Link>
           </header>
           <Outlet />

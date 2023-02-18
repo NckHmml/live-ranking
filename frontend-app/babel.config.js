@@ -12,7 +12,10 @@ module.exports = {
     ],
   ],
   plugins: [
-    "styled-jsx/babel",
+    [
+      "styled-jsx/babel",
+      { vendorPrefixes: false }
+    ],
     [
       "@babel/plugin-proposal-decorators",
       { version: "legacy" }
