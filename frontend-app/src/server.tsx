@@ -10,19 +10,15 @@ import * as path from "path";
 import * as fs from "fs";
 import * as React from "react";
 import * as Handlebars from "handlebars";
-import { renderToString } from "react-dom/server";
+import { renderToStaticMarkup, renderToString } from "react-dom/server";
 import { createStaticRouter, StaticRouterProvider } from "react-router-dom/server";
 import { createStaticHandler } from "@remix-run/router";
 import { Helmet } from "react-helmet";
 import { enableStaticRendering } from "mobx-react";
+import { createStyleRegistry, StyleRegistry } from "styled-jsx";
 
 /** Custom import logic, needs to be before local imports */
 require.extensions[".css"] = (_module, _file) => null;
-require.extensions[".svg"] = (module, file) => {
-  const content = Buffer.from(fs.readFileSync(file, "utf8")).toString("base64");
-  // eslint-disable-next-line no-param-reassign
-  module.exports = "data:image/svg+xml;base64," + content;
-};
 
 import Routes from "routes";
 import { RankingService } from "services/RankingService";
@@ -103,13 +99,20 @@ const renderReact: express.RequestHandler = async (req: express.Request, res: ex
     throw context;
   }
 
+  /* styled/jsx */
+  const styleRegistry = createStyleRegistry();
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const styles = renderToStaticMarkup(<>{styleRegistry.styles()}</>);
+
   const router = createStaticRouter(Routes, context);
   const reactDom = renderToString(
     <React.StrictMode>
-      <StaticRouterProvider
-        router={router}
-        context={context}
-      />
+      <StyleRegistry registry={styleRegistry}>
+        <StaticRouterProvider
+          router={router}
+          context={context}
+        />
+      </StyleRegistry>
     </React.StrictMode>
   );
 
@@ -117,6 +120,7 @@ const renderReact: express.RequestHandler = async (req: express.Request, res: ex
   const body = indexTemplate({
     reactDom,
     helmet,
+    styles,
   });
 
   res.writeHead(context.statusCode, { "Content-Type": "text/html" });

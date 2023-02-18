@@ -38,14 +38,7 @@ const children = (
   </React.StrictMode>
 );
 
-if (process.env.NODE_ENV === "development") {
-  const root = ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
-  );
-  root.render(children);
-} else {
-  ReactDOM.hydrateRoot(
-    document.getElementById("root") as HTMLElement,
-    children
-  );
-}
+ReactDOM.hydrateRoot(
+  document.getElementById("root") as HTMLElement,
+  children
+);

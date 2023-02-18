@@ -1,4 +1,5 @@
 /// <reference types="react-scripts" />
+/// <reference types="styled-jsx" />
 
 import "typedi";
 

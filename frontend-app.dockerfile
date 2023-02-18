@@ -1,11 +1,12 @@
 FROM node:19-alpine AS build-env
 WORKDIR /app
+ENV BABEL_ENV=development
 
 COPY . ./
 RUN cp ./.env.production ./.env
 RUN npm ci
 RUN npm run build
-RUN npx tsc --build tsconfig.server.json
+RUN npx babel -d ./bin -x .ts,.tsx ./src
 
 FROM node:19-alpine
 ENV NODE_PATH=bin/
