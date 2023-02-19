@@ -1,4 +1,4 @@
-import { Controller, Delete, Get } from "routing-controllers";
+import { Controller, Delete, Get, OnUndefined } from "routing-controllers";
 
 @Controller()
 export class RankingController {
@@ -9,8 +9,8 @@ export class RankingController {
   }
 
   @Delete("/ranking")
+  @OnUndefined(204)
   public async clearAll() {
-    const response = await fetch(`${process.env.BACKEND_API}/ranking`, { method: "DELETE" });
-    return await response.json();
+    await fetch(`${process.env.BACKEND_API}/ranking`, { method: "DELETE" });
   }
 }

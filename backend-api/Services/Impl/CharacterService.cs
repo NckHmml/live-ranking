@@ -46,6 +46,7 @@ public class CharacterService : ICharacterService
     {
       character.SetExp(0);
       RedisDatabase.Publish($"experience:{character.Id}", 0);
+      RedisDatabase.SortedSetAdd("players", character.Id.ToString(), character.Experience);
     }
   }
 }

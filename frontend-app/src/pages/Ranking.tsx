@@ -2,9 +2,11 @@ import React from "react";
 import { observer } from "mobx-react";
 import Container from "typedi";
 import { RankingStore } from "redux/RankingStore";
+
 import withLoaderData, { WithLoaderDataProps } from "helpers/withLoaderData";
 import { Logger } from "helpers/Logger";
 import { RankEntry } from "components/RankEntry";
+import { Button } from "components/Button";
 
 type Props = WithLoaderDataProps<{}, RankingStore["characters"]>;
 
@@ -13,6 +15,15 @@ class Ranking extends React.Component<Props> {
   private get logger(): Logger {
     return Container.get(Logger);
   }
+
+  private get rankingStore(): RankingStore {
+    return Container.get(RankingStore);
+  }
+
+  public onClear = () => {
+    this.logger.info("Clearing the current ranking");
+    this.rankingStore.clearAll();
+  };
 
   public componentDidMount() {
     this.logger.info("Current page: Ranking");
@@ -27,8 +38,14 @@ class Ranking extends React.Component<Props> {
       ));
     return (
       <div>
+        <style jsx>{`
+          div > :global(button) {
+            margin-top: 10px;
+          }
+        `}</style>
         <h1>Ranking</h1>
         {rankings}
+        <Button onClick={this.onClear}>Clear all</Button>
       </div>
     );
   }

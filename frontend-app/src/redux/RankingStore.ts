@@ -18,6 +18,10 @@ export class RankingStore {
     return Container.get(WebSocketService);
   }
 
+  public get characters(): Array<ICharacterViewModel> {
+    return this.charactersBuffer;
+  }
+
   public loading: Promise<Array<unknown>>;
 
   public constructor() {
@@ -29,6 +33,7 @@ export class RankingStore {
     // Refresh data when cache is old, only on browser
     if (process.env.REACT_APP_PLATFORM === "BROWSER") {
       setInterval(this.loadCharacters, 30 * 1e3);
+      setTimeout(this.syncLock, 0);
     }
   }
 
@@ -44,6 +49,13 @@ export class RankingStore {
     data.loaderData!["ranking"] = this.charactersBuffer;
   }
 
+  // Introducing a lock handler makes the updating less erractic, timeout needs to match or exceed the update cycle
+  private syncLock = async () => {
+    const lockTimer = new Promise((resolve, _reject) => setTimeout(resolve, 1e3));
+    await navigator.locks.request("onExpData", () => lockTimer);
+    setTimeout(this.syncLock, 0);
+  };
+
   private loadCharacters = async () => {
     const characters = await this.rankingService.getAll();
     runInAction(() => this.charactersBuffer.replace(characters));
@@ -56,10 +68,12 @@ export class RankingStore {
     }
   };
 
-  private onExpData = (id: string, message: string) => {
+  private onExpData = async (id: string, message: string) => {
     const index = this.charactersBuffer.findIndex(x => x.id === id);
     if (index === -1) return; // Happens when the ranking changed the top10 and we are listening to old chars, ToDo: optimize, unlisten
-    this.charactersBuffer[index].experience = Number(message);
+    await navigator.locks.request("onExpData", () => {
+      this.charactersBuffer[index].experience = Number(message);
+    });
   };
 
   public getCharacter = (id?: string): ICharacterViewModel | undefined => {
@@ -69,7 +83,8 @@ export class RankingStore {
     return this.charactersBuffer[index];
   };
 
-  public get characters(): Array<ICharacterViewModel> {
-    return this.charactersBuffer;
-  }
+  public clearAll = async () => {
+    await this.rankingService.clearAll();
+    await this.loadCharacters();
+  };
 }

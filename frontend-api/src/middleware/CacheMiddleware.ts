@@ -11,6 +11,9 @@ export class CacheMiddleware implements ExpressMiddlewareInterface {
   private useCaching = this.cache.route();
 
   public use(request: any, response: any, next: (err?: any) => any) {
-    this.useCaching(request, response, next);
+    if (request.method === "GET")
+      this.useCaching(request, response, next);
+    else
+      next();
   }
 }

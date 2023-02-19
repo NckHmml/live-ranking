@@ -33,7 +33,7 @@ const routes: Array<RouteObject> = [{
       const character = rankingStore.getCharacter(params.id);
       if (!Boolean(character))
         throw new Response("Not found", { status: 404 });
-      return character;
+      return character!.id;
     }
   }]
 }];

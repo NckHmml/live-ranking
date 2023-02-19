@@ -29,6 +29,5 @@ public class RankingService : IRankingService
   public void ClearRanking()
   {
     CharacterService.ClearExp();
-    RedisDatabase.SortedSetRemoveRangeByRank("players", 0, -1);
   }
 }

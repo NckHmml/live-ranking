@@ -2,12 +2,12 @@ import React from "react";
 import withNavigate, { WithNavigateProps } from "helpers/withNavigate";
 import { ICharacterViewModel } from "models/Character";
 
-interface IProps {
+type Props = {
   index: number;
   character: ICharacterViewModel;
-}
+};
 
-class RankEntryComponent extends React.Component<WithNavigateProps<IProps>> {
+class RankEntryComponent extends React.Component<WithNavigateProps<Props>> {
   public onClick = () => {
     const { navigate, character } = this.props;
     navigate(`/character/${character.id}`);

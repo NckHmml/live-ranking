@@ -8,6 +8,8 @@ public class TimerService : IHostedService, IDisposable
   private ILogger<TimerService> Logger { get; }
   private ICharacterService CharacterService { get; }
 
+  private TimeSpan TimerTick { get; } = TimeSpan.FromMilliseconds(1e3); // Every second
+
   public TimerService(ILogger<TimerService> logger,
                       ICharacterService characterService)
   {
@@ -23,7 +25,7 @@ public class TimerService : IHostedService, IDisposable
   public Task StartAsync(CancellationToken cancellationToken)
   {
     Logger.LogInformation("Timer service started.");
-    Timer = new Timer(DoTick, null, TimeSpan.FromMilliseconds(1000), TimeSpan.FromMilliseconds(1000));
+    Timer = new Timer(DoTick, null, TimerTick, TimerTick);
 
     return Task.CompletedTask;
   }
@@ -44,7 +46,7 @@ public class TimerService : IHostedService, IDisposable
     foreach (Character character in characters)
     {
       var bonus = (long)Math.Min(character.Experience / 5, 1e4); // Bonus makes the top of the leaderboard "run ahead" due to luck increasing the max random
-      var exp = random.NextInt64(1, 1000 + bonus);
+      var exp = random.NextInt64(bonus, 1000 + bonus);
       CharacterService.AddExp(character.Id, exp);
     }
   }

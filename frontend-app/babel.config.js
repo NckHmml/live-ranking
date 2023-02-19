@@ -1,3 +1,4 @@
+// Babel configuration for the node SSR, pure web build still goes through craco/CRA
 module.exports = {
   presets: [
     "@babel/preset-typescript",
